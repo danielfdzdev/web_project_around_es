@@ -32,11 +32,11 @@ determine whether its delete button should be available.
 The initial HTML and CSS define the loading state. The request handlers then
 switch the interface to the appropriate result:
 
-| State | Spinner | Profile and Cards | Load Error Section |
-| --- | --- | --- | --- |
-| Loading | Visible | Hidden | Hidden |
-| Success | Hidden | Visible | Hidden |
-| Failure | Hidden | Hidden | Visible |
+| State   | Spinner | Profile and Cards | Load Error Section |
+| ------- | ------- | ----------------- | ------------------ |
+| Loading | Visible | Hidden            | Hidden             |
+| Success | Hidden  | Visible           | Hidden             |
+| Failure | Hidden  | Hidden            | Visible            |
 
 The spinner tracks the API data requests. Image URLs arrive in the JSON
 responses; assigning them to image elements starts separate downloads. The
@@ -50,15 +50,15 @@ Reloading the page retries initial loading; there is no dedicated Retry button.
 profiles, cards, and likes are reflected in the interface after successful
 server responses. Failed requests are reported through toast notifications.
 
-| Module | Responsibility |
-| --- | --- |
-| `Api` | Sends requests, checks HTTP responses, and returns parsed data. |
-| `Card` | Creates card elements and manages their visual state and events. |
-| `Section` | Renders collections and inserts elements into the card list. |
-| `UserInfo` | Reads and updates the displayed profile and stores the user ID. |
-| `Popup` and subclasses | Manage forms, image previews, and deletion confirmation. |
-| `FormValidator` | Validates inputs and controls form submit-button availability. |
-| `NotificationToast` | Displays dismissible error messages with an automatic timeout. |
+| Module                 | Responsibility                                                   |
+| ---------------------- | ---------------------------------------------------------------- |
+| `Api`                  | Sends requests, checks HTTP responses, and returns parsed data.  |
+| `Card`                 | Creates card elements and manages their visual state and events. |
+| `Section`              | Renders collections and inserts elements into the card list.     |
+| `UserInfo`             | Reads and updates the displayed profile and stores the user ID.  |
+| `Popup` and subclasses | Manage forms, image previews, and deletion confirmation.         |
+| `FormValidator`        | Validates inputs and controls form submit-button availability.   |
+| `NotificationToast`    | Displays dismissible error messages with an automatic timeout.   |
 
 Initial cards are appended in the order supplied by the API. Newly created
 cards are prepended so they appear at the beginning of the list immediately.
@@ -134,8 +134,3 @@ There is no automated test suite configured. Before publishing changes:
   deletion confirmation, including their failure feedback.
 - Verify the layout at desktop and mobile widths and check the deployed page
   after a successful GitHub Actions run.
-
-## Learning Notes
-
-The [study backlog](docs/STUDY_BACKLOG.md) collects topics to revisit, practice
-exercises based on this project, and optional improvements for a future iteration.
