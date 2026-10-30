@@ -13,6 +13,13 @@ const editProfileButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
 const updateProfilePicButton = document.querySelector(".profile__image-button");
 
+// loading section, error section and content section
+// HTML/CSS define the initial state: spinner visible,
+// main content hidden, and load-error hidden by default.
+const spinner = document.querySelector(".spinner");
+const content = document.querySelector(".content");
+const loadErrorElement = document.querySelector(".load-error");
+
 // Form validators. These control input errors and submit-button state.
 const editProfileFormValidator = new FormValidator(
   config,
@@ -62,9 +69,13 @@ api
     // render the cards when the user id
     // is ready to be compared with the card owner
     cardSection.renderItems(cards);
+    setLoadingState(false);
+    setLoadErrorState(false);
   })
   .catch((err) => {
     handleRequestError(err);
+    setLoadingState(false);
+    setLoadErrorState(true);
   });
 
 // Image popup. Cards will open this through the callback passed to Card.
@@ -209,9 +220,7 @@ const newCardPopup = new PopupWithForm("#new-card-popup", (inputValues) => {
     .catch((err) => {
       handleRequestError(err);
     })
-    .finally(() => {
-      newCardPopup.renderLoadingState(false);
-    });
+    .finally(() => {});
 });
 newCardPopup.setEventListeners();
 
@@ -243,3 +252,33 @@ function handleRequestError(err) {
     );
   }
 }
+
+// Both helpers change main-content visibility, so their call order matters.
+
+// Shows loading feedback while data is pending.
+// Ending loading hides the spinner and reveals the main content;
+// this alone does not mean the request succeeded.
+function setLoadingState(isLoading) {
+  if (isLoading) {
+    spinner.classList.add("spinner_visible");
+    content.classList.add("content_hidden");
+  } else {
+    spinner.classList.remove("spinner_visible");
+    content.classList.remove("content_hidden");
+  }
+}
+
+// The base CSS hides the error section. Its visibility modifier
+// shows it instead of the main content when initial loading fails.
+// Removing the modifier hides the error and restores the content.
+function setLoadErrorState(hasError) {
+  if (hasError) {
+    loadErrorElement.classList.add("load-error_visible");
+    content.classList.add("content_hidden");
+  } else {
+    loadErrorElement.classList.remove("load-error_visible");
+    content.classList.remove("content_hidden");
+  }
+}
+//When page loads for the first time the spinner is visible and the content hidden, we reverse
+//that once we have info to show.

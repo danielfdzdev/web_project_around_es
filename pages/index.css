@@ -10,3 +10,5 @@
 @import url("../blocks/card.css");
 @import url("../blocks/popup.css");
 @import url("../blocks/notification.css");
+@import url("../blocks/spinner.css");
+@import url("../blocks/load-error.css");

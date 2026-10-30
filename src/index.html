@@ -16,7 +16,14 @@
           src="../images/logo.svg"
         />
       </header>
-      <main class="content">
+      <div class="spinner spinner_visible"><i></i></div>
+      <div class="load-error">
+        <h2 class="load-error__title">No pudimos cargar la página</h2>
+        <p class="load-error__message">
+          Tu perfil y tus lugares no están disponibles en este momento
+        </p>
+      </div>
+      <main class="content content_hidden">
         <section class="profile page__section">
           <div class="profile__pic-container">
             <button
